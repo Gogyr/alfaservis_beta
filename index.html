@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>АльфаСервис — автосервис в Минске, ул. Левкова 41</title>
+  <meta name="description" content="Автосервис «АльфаСервис» в Минске: замена стёкол за 1 день, подбор по VIN, заправка кондиционера и прямое урегулирование КАСКО. ул. Левкова, 41.">
+  <meta property="og:title" content="АльфаСервис — автосервис в Минске, ул. Левкова 41">
+  <meta property="og:description" content="Замена стёкол за 1 день, подбор по VIN и работа по КАСКО. Минск, ул. Левкова, 41.">
+  <meta property="og:type" content="website">
+  <!-- Тёмный квадрат и белая «a» — как вывеска сервиса. Файл не нужен: иконка вшита в страницу. -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0D10'/%3E%3Cpath fill='%23FFFFFF' fill-rule='evenodd' d='M19.1 8.2h3.2v15.6h-3.2V8.2zM16.4 12.1c2.5 0 4.2 1.7 4.2 4.3S18.9 20.7 16.4 20.7 12.2 19 12.2 16.4s1.7-4.3 4.2-4.3zm0 2.5c-1.1 0-1.8.7-1.8 1.8s.7 1.8 1.8 1.8 1.8-.7 1.8-1.8-.7-1.8-1.8-1.8z'/%3E%3C/svg%3E">
+  <!-- Номера уже размечены ссылками tel:, автоопределение браузера только мешает -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#0B0D10">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Тема читается до CSS, чтобы светлый вариант не мигал тёмным кадром. -->
+  <script>
+    try {
+      var savedTheme = localStorage.getItem('alfaservis-theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    } catch (error) {
+      /* Хранилище закрыто — остаётся data-theme из тега html. */
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Шапка липкая. Класс is-scrolled и открытие меню добавляет script.js -->
+  <header class="site-header">
+    <div class="container header-bar">
+      <a class="logo" href="#top">АЛЬФАСЕРВИС</a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <a href="#services">Услуги</a>
+        <a href="#why-us">Преимущества</a>
+        <a href="#kasko">КАСКО</a>
+        <a href="#steps">Как работаем</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-phone" href="tel:+375296560604">+375 (29) 656-06-04</a>
+
+        <!--
+          Обе иконки в одной кнопке. CSS показывает солнце в тёмной теме
+          и луну в светлой, когда скрипт меняет data-theme.
+        -->
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 3v1.8M12 19.2V21M4.9 4.9l1.3 1.3M17.8 17.8l1.3 1.3M3 12h1.8M19.2 12H21M4.9 19.1l1.3-1.3M17.8 6.2l1.3-1.3"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14.2A7.8 7.8 0 0 1 9.8 3.5 7.2 7.2 0 1 0 20.5 14.2z"></path>
+          </svg>
+        </button>
+
+        <a class="btn btn-primary header-cta" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link>Записаться</a>
+
+        <button class="icon-btn menu-toggle" id="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!--
+      Фото-полоса героя. Текст всегда светлый: подложка тёмная и в светлой теме.
+      Справа на десктопе — визитка с адресом, графиком и телефоном.
+    -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Минск · ул. Левкова, 41</p>
+          <h1 class="hero-title" id="hero-title">Автосервис «АльфаСервис» — сервис и замена стёкол за 1 день</h1>
+          <p class="hero-lead">Профессиональное обслуживание вашего автомобиля, точный подбор деталей и автостёкол по VIN, честные цены и работа по КАСКО.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link>Записаться</a>
+            <a class="btn btn-secondary" href="tel:+375296560604">Позвонить</a>
+          </div>
+
+          <ul class="trust-list">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M8 12.2 10.4 14.6 16.2 9"></path>
+              </svg>
+              <span>10+ лет опыта</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M8 12.2 10.4 14.6 16.2 9"></path>
+              </svg>
+              <span>Подбор по VIN</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M8 12.2 10.4 14.6 16.2 9"></path>
+              </svg>
+              <span>Прямое урегулирование КАСКО</span>
+            </li>
+          </ul>
+        </div>
+
+        <aside class="visit-card" aria-label="Визитка сервиса">
+          <p class="visit-card__title">Визитка сервиса</p>
+          <dl class="visit-card__list">
+            <div>
+              <dt>Адрес</dt>
+              <dd>ул. Левкова, 41, м. Ковальская Слобода</dd>
+            </div>
+            <div>
+              <dt>Режим работы</dt>
+              <dd>ПН–ЧТ 9:00–17:45 · ПТ 9:00–16:00</dd>
+            </div>
+            <div>
+              <dt>Оценка</dt>
+              <dd>4.8 ★ на Яндекс Картах</dd>
+            </div>
+            <div>
+              <dt>A1</dt>
+              <dd><a href="tel:+375296560604">+375 (29) 656-06-04</a></dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Карточка услуги: фото сверху, цена снизу. Если файла ещё нет, остаётся металлическая подложка. -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <h2 class="section-title" id="services-title">Услуги и цены</h2>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-card__media">
+              <img src="images/service-glass.jpg" alt="Замена лобового стекла в боксе АльфаСервис" width="640" height="400" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h3>Замена и ремонт автостёкол</h3>
+              <p>Лобовые, боковые и задние стёкла, подбор по VIN, от эконом до премиум</p>
+              <div class="service-card__price">
+                <span class="price-badge">По запросу</span>
+                <a class="btn btn-secondary service-card__cta" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="glass">Уточнить цену</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__media">
+              <img src="images/service-ac.jpg" alt="Заправка автомобильного кондиционера" width="640" height="400" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h3>Заправка кондиционера</h3>
+              <p>Вакуумизация, проверка герметичности системы и заправка</p>
+              <div class="service-card__price">
+                <span class="price-badge">от 25 р.</span>
+                <p class="price-note">+ 15 р. / 100 г фреона</p>
+                <a class="btn btn-secondary service-card__cta" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="ac">Записаться</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__media">
+              <img src="images/service-headlights.jpg" alt="Полировка помутневшей автомобильной фары" width="640" height="400" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h3>Полировка фар</h3>
+              <p>Восстановление прозрачности и яркости оптики</p>
+              <div class="service-card__price">
+                <span class="price-badge">80 р.</span>
+                <p class="price-note price-note--accent">70 р. при замене стекла</p>
+                <a class="btn btn-secondary service-card__cta" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="headlights">Записаться</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__media">
+              <img src="images/service-rain.jpg" alt="Нанесение гидрофобного покрытия на стекло" width="640" height="400" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h3>Покрытие «Антидождь»</h3>
+              <p>Гидрофобная защита стекла для чёткого обзора в дождь</p>
+              <div class="service-card__price">
+                <span class="price-badge">30 р.</span>
+                <a class="btn btn-secondary service-card__cta" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="rain">Записаться</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__media">
+              <img src="images/service-wipers.jpg" alt="Новые щётки стеклоочистителя на автомобиле" width="640" height="400" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h3>Замена щёток стеклоочистителя</h3>
+              <p>Подбор и быстрая установка под вашу модель авто</p>
+              <div class="service-card__price">
+                <span class="price-badge">Уточняйте</span>
+                <a class="btn btn-secondary service-card__cta" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="wipers">Уточнить цену</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why-us" aria-labelledby="why-title">
+      <div class="container">
+        <h2 class="section-title" id="why-title">Почему выбирают нас</h2>
+
+        <div class="metric-grid">
+          <article class="metric-card">
+            <p class="metric-value">10+ лет</p>
+            <p>Опыт мастеров и знание конструктивных особенностей разных марок авто.</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-value">10&nbsp;000+</p>
+            <p>Выполненных работ и установленных стёкол с гарантией качества.</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-value">Все сегменты</p>
+            <p>Прямые поставки и решения под любой бюджет: от эконом до премиум.</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-value">Удобная оплата</p>
+            <p>Наличные, банковские карты, безнал для юрлиц, карты рассрочки «Халва» и «Автокарта».</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kasko" aria-labelledby="kasko-title">
+      <div class="container">
+        <div class="kasko-banner">
+          <div class="kasko-banner__content">
+            <h2 id="kasko-title">Прямое урегулирование по АВТОКАСКО</h2>
+            <p>Повреждено стекло по страховке? Вам не нужно тратить время на поездки в страховую. Берём согласование и передачу оригиналов документов на себя — согласование обычно занимает до 24 часов.</p>
+          </div>
+          <a class="btn btn-primary" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="kasko">Оформить по КАСКО</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="steps" aria-labelledby="steps-title">
+      <div class="container">
+        <h2 class="section-title" id="steps-title">Как мы работаем</h2>
+
+        <ol class="steps">
+          <li class="step-card">
+            <h3 class="step-title"><span class="step-index">01</span> · Заявка</h3>
+            <p>Пишете в Telegram или звоните, описываете задачу.</p>
+          </li>
+          <li class="step-card">
+            <h3 class="step-title"><span class="step-index">02</span> · Подбор по VIN</h3>
+            <p>Проверяем комплектацию, называем точную цену и согласуем удобное время.</p>
+          </li>
+          <li class="step-card">
+            <h3 class="step-title"><span class="step-index">03</span> · Выполнение работ</h3>
+            <p>Приезжаете на ул. Левкова, 41 — выполняем работы в срок и выдаём гарантию.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Три кадра бокса. Файлы локальные: images/work-1.jpg, work-2.jpg, work-3.jpg -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <h2 class="section-title" id="gallery-title">Наш бокс и работа</h2>
+
+        <div class="gallery-grid">
+          <figure class="gallery-card">
+            <div class="gallery-card__media">
+              <img src="images/work-1.jpg" alt="Отапливаемый бокс автосервиса на улице Левкова" width="800" height="600" loading="lazy">
+            </div>
+            <figcaption>Отапливаемый бокс на Левкова 41</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <div class="gallery-card__media">
+              <img src="images/work-2.jpg" alt="Подбор автостекла и комплектующих по VIN" width="800" height="600" loading="lazy">
+            </div>
+            <figcaption>Точный подбор комплектующих по VIN</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <div class="gallery-card__media">
+              <img src="images/work-3.jpg" alt="Контроль качества после установки стекла" width="800" height="600" loading="lazy">
+            </div>
+            <figcaption>Аккуратная работа и контроль качества</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <h2 class="section-title" id="reviews-title">Отзывы клиентов</h2>
+
+        <!-- Сводка с Яндекс Карт: общая оценка и три сильные стороны сервиса. -->
+        <div class="rating-bar">
+          <p class="rating-score">
+            <span class="rating-score__value">4,8 / 5</span>
+            <span class="rating-score__count">190 оценок</span>
+          </p>
+          <ul class="rating-pills">
+            <li>100% — время ожидания</li>
+            <li>91% — персонал</li>
+            <li>87% — качество работ</li>
+          </ul>
+        </div>
+
+        <div class="review-grid">
+          <article class="review-card">
+            <p class="stars" role="img" aria-label="Оценка 5 из 5">
+              <svg class="stars-svg" viewBox="0 0 116 20" width="116" height="20" aria-hidden="true">
+                <path fill="#F5C451" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(24)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(48)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(72)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(96)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+              </svg>
+            </p>
+            <p class="review-text">Лобовое подобрали по VIN вместе с камерой и датчиком дождя. Поставили в тот же день, кромка ровная, лишнего шума на трассе нет.</p>
+            <p class="review-author"><strong>Андрей Л.</strong><span>Audi A4</span></p>
+          </article>
+
+          <article class="review-card">
+            <p class="stars" role="img" aria-label="Оценка 5 из 5">
+              <svg class="stars-svg" viewBox="0 0 116 20" width="116" height="20" aria-hidden="true">
+                <path fill="#F5C451" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(24)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(48)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(72)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(96)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+              </svg>
+            </p>
+            <p class="review-text">Стекло по КАСКО оформили без поездки в страховую. Документы забрали сами, на следующий день уже было согласование и запись.</p>
+            <p class="review-author"><strong>Ольга Н.</strong><span>Toyota Corolla</span></p>
+          </article>
+
+          <article class="review-card">
+            <p class="stars" role="img" aria-label="Оценка 5 из 5">
+              <svg class="stars-svg" viewBox="0 0 116 20" width="116" height="20" aria-hidden="true">
+                <path fill="#F5C451" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(24)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(48)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(72)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+                <path fill="#F5C451" transform="translate(96)" d="M10 1.6 12.2 6.1l5 .7-3.6 3.5.9 4.9L10 13 5.5 15.2l.9-4.9L2.8 6.8l5-.7L10 1.6z"></path>
+              </svg>
+            </p>
+            <p class="review-text">Заправили кондиционер после проверки системы и отполировали мутные фары. В салоне снова прохладно, свет стал заметно ярче. Цену назвали до начала работ.</p>
+            <p class="review-author"><strong>Сергей П.</strong><span>Skoda Octavia</span></p>
+          </article>
+        </div>
+
+        <p class="reviews-more">
+          <a class="btn btn-secondary" href="https://yandex.by/maps/org/alfaservisgrupp/1270823640/reviews/" target="_blank" rel="noopener noreferrer">Читать все 75 отзывов на Яндекс Картах</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="contacts" aria-labelledby="contacts-title">
+      <div class="container">
+        <h2 class="section-title" id="contacts-title">Контакты</h2>
+
+        <div class="contacts-layout">
+          <address class="contact-card">
+            <h3>Адрес</h3>
+            <p class="contact-address">г. Минск, ул. Левкова, 41 (рядом с м. Ковальская Слобода)</p>
+
+            <h3>Телефоны</h3>
+            <ul class="contact-list">
+              <li>
+                <span class="contact-label">A1</span>
+                <a href="tel:+375296560604">+375 (29) 656-06-04</a>
+              </li>
+              <li>
+                <span class="contact-label">life:)</span>
+                <a href="tel:+375256560604">+375 (25) 656-06-04</a>
+              </li>
+              <li>
+                <span class="contact-label">Городской</span>
+                <a href="tel:+375173600604">+375 (17) 360-06-04</a>
+              </li>
+            </ul>
+
+            <h3>Режим работы</h3>
+            <ul class="hours-list">
+              <li>ПН–ЧТ: 9:00–17:45</li>
+              <li>ПТ: 9:00–16:00</li>
+              <li>СБ–ВС: выходной</li>
+            </ul>
+
+            <div class="contact-actions">
+              <a class="btn btn-primary" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link>Написать в Telegram</a>
+              <a class="btn btn-secondary" href="viber://chat?number=%2B375296560604">Написать в Viber</a>
+            </div>
+          </address>
+
+          <div class="map-frame">
+            <iframe src="https://yandex.ru/map-widget/v1/?ll=27.555615%2C53.873882&z=16&pt=27.555615%2C53.873882%2Cpm2rdm" width="100%" height="360" frameborder="0" loading="lazy" title="Карта проезда АльфаСервис, Минск, ул. Левкова 41"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bar">
+      <p class="legal">ООО «АльфаСервисГрупп» · УНП 192173660 · <a href="mailto:mail@alfaservis.by">mail@alfaservis.by</a></p>
+      <a class="to-top" href="#top">Наверх</a>
+    </div>
+  </footer>
+
+  <!-- Нижняя панель только до 768px: на планшете и десктопе её прячет CSS. -->
+  <div class="mobile-bar">
+    <a class="btn btn-secondary" href="tel:+375296560604">Позвонить</a>
+    <a class="btn btn-primary" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link>Записаться</a>
+  </div>
+
+  <!-- Плавающий помощник: круг всегда виден, пузырь с приветствием показывает script.js. -->
+  <div class="bot-widget" id="bot-widget">
+    <div class="bot-widget__bubble" id="bot-bubble" role="dialog" aria-label="Помощник АльфаСервис" hidden>
+      <button type="button" class="bot-widget__close" id="bot-bubble-close" aria-label="Закрыть подсказку">×</button>
+      <a class="bot-widget__text" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="widget">Подсказать примерную цену или помочь записаться?</a>
+    </div>
+    <a class="bot-widget__btn" href="https://t.me/BOT_USERNAME" target="_blank" rel="noopener noreferrer" data-booking-link="widget" aria-label="Открыть помощника в Telegram">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 16.2 5.4 19c-.3.5.3 1.1.8.8l2.6-1.4A7.2 7.2 0 1 0 7 16.2z"></path>
+        <path d="M8.6 10.6h6.2M8.6 13.4h4"></path>
+      </svg>
+      <span class="bot-widget__status" aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
